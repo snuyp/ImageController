@@ -7,9 +7,14 @@
     <item android:title="Management">
         <menu>
             <item
-                android:id="@+id/nav_view_upload"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="View your uploads"/>
+                android:id="@+id/photo"
+                android:icon="@drawable/ic_account_box_black_24dp"
+                android:title="@string/photo"/>
+            <item
+                android:id="@+id/map"
+                android:icon="@drawable/ic_map_black_24dp"
+                android:title="@string/map"/>
+
         </menu>
     </item>
 

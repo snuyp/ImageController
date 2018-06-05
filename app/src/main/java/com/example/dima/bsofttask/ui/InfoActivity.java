@@ -58,6 +58,7 @@ public class InfoActivity extends MvpAppCompatActivity implements CommentsView {
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.ic_terrain_black_24dp))
                 .into(photoImage);
+
         datePhotoTitle = findViewById(R.id.top_title);
         datePhotoTitle.setText(photo.getDateFormat());
         commentsPresenter.loadComments(photo.getId(),false);

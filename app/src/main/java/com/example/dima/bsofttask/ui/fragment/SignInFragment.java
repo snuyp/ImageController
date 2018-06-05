@@ -16,7 +16,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.dima.bsofttask.R;
 import com.example.dima.bsofttask.mvp.presenter.LoginPresenter;
 import com.example.dima.bsofttask.mvp.view.LoginView;
-import com.example.dima.bsofttask.ui.PhotoActivity;
+import com.example.dima.bsofttask.ui.HomeActivity;
 
 import es.dmoral.toasty.Toasty;
 
@@ -60,7 +60,7 @@ public class SignInFragment extends MvpAppCompatFragment implements LoginView {
     @Override
     public void onLoginResult(Integer messageResult) {
         Toasty.success(getContext(),getString(messageResult), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getContext(), PhotoActivity.class);
+        Intent intent = new Intent(getContext(), HomeActivity.class);
         startActivity(intent);
     }
 
