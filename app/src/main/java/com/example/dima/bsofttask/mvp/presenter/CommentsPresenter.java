@@ -22,7 +22,7 @@ import retrofit2.Response;
 public class CommentsPresenter extends MvpPresenter<CommentsView> {
     private Service service = Common.getRetrofitService();
 
-    public void loadComments(int photoId, boolean isRefresh) {
+    public void loadComments(final int photoId, boolean isRefresh) {
         int page = 0;
         if (!isRefresh) {
             service.getListComment(Common.token, photoId, page).enqueue(new Callback<ListComments>() {
@@ -30,7 +30,7 @@ public class CommentsPresenter extends MvpPresenter<CommentsView> {
                 public void onResponse(Call<ListComments> call, Response<ListComments> response) {
                     if (response.isSuccessful()) {
                         ListComments list= response.body();
-                        getViewState().onLoadResult(list.getComment());
+                        getViewState().onLoadResult(list.getComment(),photoId);
                         getViewState().setRefreshing(false);
                     }
                 }
@@ -48,7 +48,7 @@ public class CommentsPresenter extends MvpPresenter<CommentsView> {
                     if (response.isSuccessful()) {
                         ListComments listComments = response.body();
                         getViewState().setRefreshing(false);
-                        getViewState().onLoadResult(listComments.getComment());
+                        getViewState().onLoadResult(listComments.getComment(),photoId);
                     }
                 }
 

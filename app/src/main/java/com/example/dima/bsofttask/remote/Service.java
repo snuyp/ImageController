@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -29,13 +30,18 @@ public interface Service {
     @POST("/api/account/signin")
     Call<RegistrationResponse> signInUser(@Body User user);
 
-
     @POST("/api/image")
     Call<ImageResponse> sendImage(@Header("Access-Token") String token, @Body UserImage userImage);
 
     @GET("/api/image")
     Call<ListImages> getImages(
             @Header("Access-Token") String token,
+            @Query("page") int page
+    );
+    @DELETE("/api/image/{id}")
+    Call<JsonObject> deleteImage(
+            @Header("Access-Token") String token,
+            @Path("id") int id,
             @Query("page") int page
     );
 
@@ -51,6 +57,13 @@ public interface Service {
              @Path("imageId") int imageId,
              @Body UserComment userComment
              );
+
+    @DELETE("/api/image/{imageId}/comment/{commentId}")
+    Call<JsonObject> deleteComment(
+            @Header("Access-Token") String token,
+            @Path("imageId") int imageId,
+            @Query("commentId") int commentId
+    );
 
 //    @POST("/api/image")
 //    Call<JsonObject> getSomething(@Header("Access-Token") String token, @Body UserImage userImage);

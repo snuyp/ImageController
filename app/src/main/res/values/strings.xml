@@ -26,4 +26,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="map">Map</string>
     <string name="photo">Photo</string>
+    <string name="sure_delete">Are you sure delete?</string>
+    <string name="return_dialog">return</string>
+    <string name="ok">ok</string>
 </resources>

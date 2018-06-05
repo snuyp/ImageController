@@ -10,6 +10,6 @@ import java.util.List;
 @StateStrategyType(AddToEndSingleStrategy.class)
 public interface CommentsView extends MvpView {
     void setRefreshing(boolean isRefresh);
-    void onLoadResult(List<Comment> comment);
+    void onLoadResult(List<Comment> comment,int imageId);
 
 }

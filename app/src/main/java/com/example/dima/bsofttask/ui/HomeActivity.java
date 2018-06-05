@@ -27,6 +27,7 @@ import com.example.dima.bsofttask.R;
 import com.example.dima.bsofttask.common.Common;
 import com.example.dima.bsofttask.mvp.presenter.PhotoPresenter;
 import com.example.dima.bsofttask.mvp.view.PhotoView;
+import com.example.dima.bsofttask.ui.fragment.MapsFragment;
 import com.example.dima.bsofttask.ui.fragment.PhotoFragment;
 import com.example.dima.bsofttask.ui.fragment.PhotoViewFragment;
 
@@ -66,10 +67,10 @@ public class HomeActivity extends MvpAppCompatActivity
             }
         });
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer,PhotoFragment.getInstance())
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.fragmentContainer,PhotoFragment.getInstance())
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                .commit();
     }
 
     @Override

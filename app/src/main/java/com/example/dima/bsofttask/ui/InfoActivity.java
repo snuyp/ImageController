@@ -85,8 +85,8 @@ public class InfoActivity extends MvpAppCompatActivity implements CommentsView {
     }
 
     @Override
-    public void onLoadResult(List<Comment> commentList) {
-        adapter = new CommentsAdapter(getBaseContext(),commentList);
+    public void onLoadResult(List<Comment> commentList,int imageId) {
+        adapter = new CommentsAdapter(getBaseContext(),commentList,imageId);
         recyclerView.setAdapter(adapter);
     }
 
