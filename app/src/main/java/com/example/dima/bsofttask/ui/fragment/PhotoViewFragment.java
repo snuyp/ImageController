@@ -35,7 +35,7 @@ public class PhotoViewFragment extends MvpDialogFragment implements SetUpLocatio
     SendPhotoPresenter sendPhotoPresenter;
 
     TextView titlePhoto;
-    private int latitude, longitude;
+    private double latitude, longitude;
 
     public static PhotoViewFragment newInstance(ImageLab imageLab) {
         Bundle args = new Bundle();
@@ -131,8 +131,8 @@ public class PhotoViewFragment extends MvpDialogFragment implements SetUpLocatio
     public void getLocation(Location location) {
 
         String cords = String.valueOf(location.getLongitude()+" "+location.getLatitude());
-        latitude = (int) location.getLatitude();
-        longitude = (int) location.getLongitude();
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
         titlePhoto.setText(cords);
     }
 }

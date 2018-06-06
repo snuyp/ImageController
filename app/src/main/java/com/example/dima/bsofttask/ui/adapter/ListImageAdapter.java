@@ -32,10 +32,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
+class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     ItemClickListener itemClickListener;
     TextView title;
     ImageView image;
+
     public ItemViewHolder(View itemView) {
         super(itemView);
         title = itemView.findViewById(R.id.title_photo_name);
@@ -43,17 +44,19 @@ class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
     }
+
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
+
     @Override
     public void onClick(View v) {
-        itemClickListener.onClick(v,getAdapterPosition(),false);
+        itemClickListener.onClick(v, getAdapterPosition(), false);
     }
 
     @Override
     public boolean onLongClick(View v) {
-        itemClickListener.onClick(v,getAdapterPosition(),true);
+        itemClickListener.onClick(v, getAdapterPosition(), true);
         return true;
     }
 }
@@ -90,12 +93,11 @@ public class ListImageAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                if(!isLongClick) {
+                if (!isLongClick) {
                     Intent intent = new Intent(context, InfoActivity.class);
                     intent.putExtra("image", listImage.get(position));
                     context.startActivity(intent);
-                }
-                else {
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle(R.string.sure_delete)
                             .setCancelable(true)
@@ -103,10 +105,8 @@ public class ListImageAdapter extends RecyclerView.Adapter<ItemViewHolder> {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             int idImage = listImage.get(holder.getAdapterPosition()).getId();
-                                            deletePosition(idImage, 0);//потом подправить
-                                            listImage.remove(holder.getAdapterPosition());
-                                            notifyItemRemoved(holder.getAdapterPosition());
-                                            notifyItemRangeChanged(holder.getAdapterPosition(), listImage.size());
+                                            deletePosition(idImage, 0, holder);//потом подправить
+
 
                                             dialog.cancel();
                                         }
@@ -131,25 +131,24 @@ public class ListImageAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         return listImage.size();
     }
 
-    private void deletePosition(int id, int page)
-    {
+    private void deletePosition(int id, int page, final ItemViewHolder holder) {
         Service service = Common.getRetrofitService();
-        service.deleteImage(Common.token,id,page).enqueue(new Callback<JsonObject>() {
+        service.deleteImage(Common.token, id, page).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if(response.isSuccessful())
-                {
-                     Toasty.success(context,"").show();
-                }
-                else
-                {
-                    Toasty.error(context,response.errorBody().toString()).show();
+                if (response.isSuccessful()) {
+                    Toasty.info(context, "Delete").show();
+                    listImage.remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                    notifyItemRangeChanged(holder.getAdapterPosition(), listImage.size());
+                } else {
+                    Toasty.error(context, response.errorBody().toString()).show();
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toasty.error(context,t.getMessage()).show();
+                Toasty.error(context, t.getMessage()).show();
             }
         });
     }

@@ -18,17 +18,41 @@ public class UserImage implements Serializable {
     private long date;
     @SerializedName("lat")
     @Expose
-    private Integer lat;
+    private double lat;
     @SerializedName("lng")
     @Expose
-    private Integer lng;
+    private double lng;
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public String getDt() {
+        return dt;
+    }
+
+    public void setDt(String dt) {
+        this.dt = dt;
+    }
 
     private String dt;
     public UserImage() {
 
     }
 
-    public UserImage(String base64Image, Integer lat, Integer lng) {
+    public UserImage(String base64Image, double lat, double lng) {
         this.base64Image = base64Image;
         dt = new SimpleDateFormat("dd.MM.yyyy"
                 ,new Locale("en","US"))
@@ -68,20 +92,6 @@ public class UserImage implements Serializable {
     }
 
 
-    public Integer getLat() {
-        return lat;
-    }
 
-    public void setLat(Integer lat) {
-        this.lat = lat;
-    }
-
-    public Integer getLng() {
-        return lng;
-    }
-
-    public void setLng(Integer lng) {
-        this.lng = lng;
-    }
 
 }

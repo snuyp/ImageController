@@ -21,6 +21,8 @@ import com.example.dima.bsofttask.ui.adapter.ListImageAdapter;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class PhotoFragment extends MvpAppCompatFragment implements LoadImagesView {
     @InjectPresenter
@@ -76,5 +78,17 @@ public class PhotoFragment extends MvpAppCompatFragment implements LoadImagesVie
     public void setRefreshing(boolean isRefresh) {
         swipeRefreshLayout.setRefreshing(isRefresh);
     }
+
+    @Override
+    public void success() {
+        Toasty.success(getActivity(),getString(R.string.success)).show();
+    }
+
+    @Override
+    public void error() {
+        Toasty.error(getActivity(),getString(R.string.error)).show();
+    }
+
+
 
 }

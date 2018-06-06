@@ -23,6 +23,8 @@ import com.example.dima.bsofttask.ui.adapter.ListImageAdapter;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class InfoActivity extends MvpAppCompatActivity implements CommentsView {
     @InjectPresenter
     CommentsPresenter commentsPresenter;
@@ -88,6 +90,15 @@ public class InfoActivity extends MvpAppCompatActivity implements CommentsView {
     public void onLoadResult(List<Comment> commentList,int imageId) {
         adapter = new CommentsAdapter(getBaseContext(),commentList,imageId);
         recyclerView.setAdapter(adapter);
+    }
+    @Override
+    public void success() {
+        Toasty.success(getApplicationContext(),getString(R.string.success)).show();
+    }
+
+    @Override
+    public void error() {
+        Toasty.error(getApplicationContext(),getString(R.string.error)).show();
     }
 
 }

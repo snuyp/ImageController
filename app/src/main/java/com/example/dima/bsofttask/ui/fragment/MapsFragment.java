@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.example.dima.bsofttask.R;
 import com.example.dima.bsofttask.common.Common;
+import com.example.dima.bsofttask.mvp.model.Image;
+import com.example.dima.bsofttask.mvp.model.ListImages;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -22,6 +24,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+
+import io.paperdb.Paper;
 
 public class MapsFragment extends MvpAppCompatFragment implements OnMapReadyCallback {
 
@@ -82,6 +87,25 @@ public class MapsFragment extends MvpAppCompatFragment implements OnMapReadyCall
         CameraPosition cameraPosition = CameraPosition.builder().
                 target(minsk).zoom(5).bearing(0).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        addMarker();
+    }
+
+    private void addMarker()
+    {
+        String cacheImage = Paper.book().read("cacheImage");
+        if (cacheImage != null && !cacheImage.isEmpty() && !cacheImage.equals("null")) {
+            ListImages listImages = new Gson().fromJson(cacheImage, ListImages.class);
+
+            for(int i =0; i<listImages.getListImage().size(); i++)
+            {
+                Image image = listImages.getListImage().get(i);
+                LatLng latLng = new LatLng(image.getLat(),image.getLng());
+                CameraPosition cameraPosition = CameraPosition.builder().
+                        target(latLng).zoom(5).bearing(0).build();
+                mMap.addMarker(new MarkerOptions().position(latLng).title(image.getDateFormat())).isVisible();
+            }
+        }
+
     }
 
 

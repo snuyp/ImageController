@@ -32,6 +32,7 @@ import com.example.dima.bsofttask.ui.fragment.PhotoFragment;
 import com.example.dima.bsofttask.ui.fragment.PhotoViewFragment;
 
 import es.dmoral.toasty.Toasty;
+import io.paperdb.Paper;
 
 public class HomeActivity extends MvpAppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,PhotoView {
@@ -45,6 +46,7 @@ public class HomeActivity extends MvpAppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Paper.init(this);
         setUpLocation();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -134,10 +136,12 @@ public class HomeActivity extends MvpAppCompatActivity
             if(id == R.id.map)
             {
                 fragment = MapsFragment.getInstance();
+                getSupportActionBar().setTitle("Map");
             }
             else if( id == R.id.photo)
             {
                 fragment = PhotoFragment.getInstance();
+                getSupportActionBar().setTitle("Photo");
             }
         ft.beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)

@@ -11,5 +11,6 @@ import java.util.List;
 public interface CommentsView extends MvpView {
     void setRefreshing(boolean isRefresh);
     void onLoadResult(List<Comment> comment,int imageId);
-
+    void success();
+    void error();
 }

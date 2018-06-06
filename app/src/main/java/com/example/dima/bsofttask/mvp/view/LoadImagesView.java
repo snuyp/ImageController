@@ -10,6 +10,7 @@ import java.util.List;
 @StateStrategyType(AddToEndSingleStrategy.class)
 public interface LoadImagesView  extends MvpView{
     void onLoadResult(List<Image> listImage);
-
     void setRefreshing(boolean isRefresh);
+    void success();
+    void error();
 }

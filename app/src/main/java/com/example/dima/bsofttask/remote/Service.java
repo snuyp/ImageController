@@ -62,11 +62,6 @@ public interface Service {
     Call<JsonObject> deleteComment(
             @Header("Access-Token") String token,
             @Path("imageId") int imageId,
-            @Query("commentId") int commentId
+            @Path("commentId") int commentId
     );
-
-//    @POST("/api/image")
-//    Call<JsonObject> getSomething(@Header("Access-Token") String token, @Body UserImage userImage);
-
-
 }
